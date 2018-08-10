@@ -1,0 +1,35 @@
+<data-sources>
+
+    <!--<base-source id="ds1" url="mysql://101.201.35.123:3306/{db-name}"-->
+                 <!--user-name="root" password="root" driver-class="com.mysql.jdbc.Driver"/>-->
+
+    <base-source id="localhost" url="jdbc:mysql://localhost:3306/{db-name}"
+                 user-name="root" password="root" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="crawler_database" count="3456"/>
+    </base-source>
+    <base-source id="docker-1" url="jdbc:mysql://101.201.35.123:39527/{db-name}"
+                 user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db1_1" count="26740264"/>
+        <data-source db-name="db1_2" count="26740264"/>
+        <data-source db-name="db11" count="21615838"/>
+        <data-source db-name="db12" count="23770954"/>
+        <data-source db-name="db13" count="9907258"/>
+
+    </base-source>
+    <base-source id="docker-2" url="jdbc:mysql://101.201.35.123:49527/{db-name}"
+                 user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db2_1" count="23025733"/>
+        <data-source db-name="db2_2" count="22706578"/>
+        <data-source db-name="db15" count="16293630"/>
+        <data-source db-name="db20" count="5389277"/>
+    </base-source>
+    <base-source id="docker-3" url="jdbc:mysql://101.201.35.123:59527/{db-name}"
+                 user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db3_1" count="25294776"/>
+        <data-source db-name="db3_2" count="25309563"/>
+    </base-source>
+    <base-source id="docker-5" url="jdbc:mysql://101.201.35.123:29527/{db-name}"
+                 user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db5_1" count="27954024"/>
+    </base-source>
+</data-sources>
