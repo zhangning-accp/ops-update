@@ -1,35 +1,57 @@
 <data-sources>
-
-    <!--<base-source id="ds1" url="mysql://101.201.35.123:3306/{db-name}"-->
-                 <!--user-name="root" password="root" driver-class="com.mysql.jdbc.Driver"/>-->
-
-    <base-source id="localhost" url="jdbc:mysql://localhost:3306/{db-name}"
-                 user-name="root" password="root" driver-class="com.mysql.jdbc.Driver">
-        <data-source db-name="crawler_database" count="3456"/>
-    </base-source>
-    <base-source id="docker-1" url="jdbc:mysql://101.201.35.123:39527/{db-name}"
+    <base-source id="docker-1" url="jdbc:mysql://172.17.238.11:39527/{db-name}"
                  user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
-        <data-source db-name="db1_1" count="26740264"/>
-        <data-source db-name="db1_2" count="26740264"/>
-        <data-source db-name="db11" count="21615838"/>
-        <data-source db-name="db12" count="23770954"/>
-        <data-source db-name="db13" count="9907258"/>
-
+        <data-source db-name="db1_1" count="26574765" isExport="true"/>
+        <data-source db-name="db1_2" count="21615838" isExport="true"/>
+        <data-source db-name="db11" count="20829673" isExport="true"/>
+        <data-source db-name="db12" count="23770954" isExport="true"/>
+        <data-source db-name="db13" count="9907258" isExport="true"/>
+        <data-source db-name="db7" count="20829673"/>
+        <data-source db-name="db6_1" count="26953661" isView="true"/>
+        <data-source db-name="db14_b_1" count="19433831" isView="true"/>
     </base-source>
-    <base-source id="docker-2" url="jdbc:mysql://101.201.35.123:49527/{db-name}"
+    <base-source id="docker-2" url="jdbc:mysql://172.17.238.11:49527/{db-name}"
                  user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
-        <data-source db-name="db2_1" count="23025733"/>
-        <data-source db-name="db2_2" count="22706578"/>
-        <data-source db-name="db15" count="16293630"/>
-        <data-source db-name="db20" count="5389277"/>
+        <data-source db-name="db2_1" count="23025733" isExport="true"/>
+        <data-source db-name="db2_2" count="22706578" isExport="true"/>
+        <data-source db-name="db15" count="16293630" isExport="true"/>
+        <data-source db-name="db20" count="5389277" isExport="true"/>
+        <data-source db-name="db8" count="24910105"/>
+        <data-source db-name="db6_2" count="26954829" isView="true"/>
+        <data-source db-name="db14_b_2" count="19433833" isView="true"/>
     </base-source>
-    <base-source id="docker-3" url="jdbc:mysql://101.201.35.123:59527/{db-name}"
+    <base-source id="docker-3" url="jdbc:mysql://172.17.238.11:59527/{db-name}"
                  user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
-        <data-source db-name="db3_1" count="25294776"/>
-        <data-source db-name="db3_2" count="25309563"/>
+        <data-source db-name="db3_1" count="25294776" isExport="true"/>
+        <data-source db-name="db3_2" count="25309563" isExport="true"/>
+        <data-source db-name="db9" count="17164870"/>
+        <data-source db-name="db12_b_1" count="20920029" isView="true"/>
+        <data-source db-name="db12_c" count="22483500" isView="true"/>
     </base-source>
-    <base-source id="docker-5" url="jdbc:mysql://101.201.35.123:29527/{db-name}"
+    <base-source id="docker-4" url="jdbc:mysql://172.17.238.11:19527/{db-name}"
                  user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
-        <data-source db-name="db5_1" count="27954024"/>
+        <data-source db-name="db4_1" count="22828644" isExport="true"/>
+        <data-source db-name="db4_2" count="22777951" isExport="true"/>
+        <data-source db-name="db10" count="27506097" isExport="true"/>
+        <data-source db-name="db12_b_2" count="20920031" isView="true"/>
+    </base-source>
+    <base-source id="docker-5" url="jdbc:mysql://172.17.238.11:29527/{db-name}"
+                 user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db5_1" count="27954024" isExport="true"/>
+        <data-source db-name="db5_2" count="27874181" isExport="true"/>
+        <data-source db-name="db12" count="33112304" isView="true"/>
+        <data-source db-name="db13_b_1" count="21328669" isView="true"/>
+    </base-source>
+    <base-source id="docker-6" url="jdbc:mysql://172.17.238.11:20006/{db-name}"
+                 user-name="root" password="crawler@20184wz" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db13" count="29891503" isView="true"/>
+        <data-source db-name="db13_b_2" count="21328671" isView="true"/>
+    </base-source>
+    <base-source id="db2" url="jdbc:mysql://172.17.238.11:3306/{db-name}"
+                 user-name="root" password="Crawler4Wz@9521" driver-class="com.mysql.jdbc.Driver">
+        <data-source db-name="db14_c" count="2403552" />
+        <data-source db-name="db14" count="29735170" isView="true"/>
+        <data-source db-name="db13_c" count="13016839" isView="true"/>
+        <data-source db-name="db12_d" count="0" isView="true"/>
     </base-source>
 </data-sources>

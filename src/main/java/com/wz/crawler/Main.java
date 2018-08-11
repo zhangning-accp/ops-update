@@ -3,6 +3,7 @@ package com.wz.crawler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import javafx.scene.chart.PieChart;
 public class Main {
     private static int target = 1;
     private static MultiDataSource dataSource = MultiDataSource.getInstance();
-    private static Map<Integer, String> fullNameMap = new HashMap<>();
+    private static Map<Integer, String> fullNameMap = new LinkedHashMap<>();
 
     /**
      * @param message 消息内容.如果内容有变量，采用{}方式
@@ -40,9 +41,11 @@ public class Main {
             String key = iterator.next();
             List<DataSource> list = map.get(key);
             for (DataSource dataSource : list) {
-                message("{}: {}\t", false, target, dataSource.getFullDbName());
-                fullNameMap.put(target, dataSource.getFullDbName());
-                target++;
+                if(dataSource.isView()) {
+                    message("{}: {}\t", false, target, dataSource.getFullDbName());
+                    fullNameMap.put(target, dataSource.getFullDbName());
+                    target++;
+                }
 
             }
             message("", true);

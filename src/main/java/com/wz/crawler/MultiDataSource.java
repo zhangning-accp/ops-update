@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -22,7 +24,7 @@ import org.dom4j.io.SAXReader;
 @Slf4j
 public class MultiDataSource {
     // key :
-    private Map<String, List<DataSource>> dataSources = new HashMap();
+    private Map<String, List<DataSource>> dataSources = new LinkedHashMap();
     // key: server_name.db_name.
 //    private Map<String,DruidDataSource> druidDataSourceMap = new HashMap();
     private Map<String,HikariDataSource> poolDataSourceMap = new HashMap();
@@ -94,6 +96,13 @@ public class MultiDataSource {
                     Element dataSourceElement = dataSourceElements.get(j);
                     String dbName = dataSourceElement.attributeValue("db-name");
                     String count = dataSourceElement.attributeValue("count");
+                    String isView = dataSourceElement.attributeValue("isView");
+                    isView = StringUtils.defaultString(isView,"false");
+                    isView = StringUtils.trimToEmpty(isView);
+                    String isExport = dataSourceElement.attributeValue("isExport");
+                    isExport = StringUtils.defaultString(isExport,"false");
+                    isExport = StringUtils.trimToEmpty(isExport);
+
                     if(StringUtils.isNotBlank(count)) {
                         try {
                             dataSource.setCount(Integer.parseInt(count));
@@ -107,6 +116,8 @@ public class MultiDataSource {
                     dataSource.setDriverClass(driverClass);
                     dataSource.setDbName(dbName);
                     dataSource.setPassword(password);
+                    dataSource.setView(BooleanUtils.toBooleanObject(isView));
+                    dataSource.setExport(BooleanUtils.toBooleanObject(isExport));
                     dataSourceList.add(dataSource);
                 }
                 dataSources.put(id, dataSourceList);
