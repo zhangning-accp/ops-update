@@ -83,7 +83,7 @@ public class MultiDataSource {
             for (int i = 0; i < baseSourceElements.size(); i++) {
                 Element baseSource = baseSourceElements.get(i);
                 String id = baseSource.attributeValue("id");
-                String url = baseSource.attributeValue("url");
+                String url = baseSource.attributeValue("url") + "?useUnicode=true&autoReconnect=true&useSSL=false";
                 String userName = baseSource.attributeValue("user-name");
                 String password = baseSource.attributeValue("password");
                 String driverClass = baseSource.attributeValue("driver-class");

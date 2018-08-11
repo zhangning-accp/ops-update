@@ -24,7 +24,7 @@ public class ECommerceProductDetailDao {
         int sortIndexs[] = findMinAndMaxSortIndex();
         int min = sortIndexs[0];
         int max = sortIndexs[1];
-        int loop = 100000;
+        int loop = 1000000;
         String sql = "update ecommerce_product_detail set crawler_task_id = null where sort_index >= ? and sort_index < ? and crawler_task_id is not null and crawler_status = 0";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
         PreparedStatement preparedStatement = null;
@@ -72,10 +72,30 @@ public class ECommerceProductDetailDao {
         return minMax;
     }
 
-
+    public int findCountIsCrawlerStatusIsZero() {
+        String sql = "select count(1) as data_total from ecommerce_product_detail where crawler_status = 0";
+        Connection connection = MultiDataSource.getInstance().getConnection(dbName);
+        log.info("connection is create... sql: {}",sql);
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int dataTotal = resultSet.getInt("data_total");
+                return dataTotal;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection,preparedStatement,resultSet);
+        }
+        return 0;
+    }
     public int findCountIsProductNameNotNull() {
         String sql = "select count(1) as data_total from ecommerce_product_detail where product_name is not null";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
+        log.info("connection is create... sql: {}",sql);
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -92,6 +112,38 @@ public class ECommerceProductDetailDao {
         }
         return 0;
     }
+
+    public int deleteCrawlerMachine() {
+        String sql = "delete from crawler_machine";
+        Connection connection = MultiDataSource.getInstance().getConnection(dbName);
+        log.info("connection is create... sql: {}",sql);
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            int rows= preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection,preparedStatement,null);
+        }
+        return 0;
+    }
+    public int deleteCrawlerTask() {
+        String sql = "DELETE FROM crawler_task WHERE task_type = 3 ;";
+        Connection connection = MultiDataSource.getInstance().getConnection(dbName);
+        log.info("connection is create... sql: {}",sql);
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            int rows= preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection,preparedStatement,null);
+        }
+        return 0;
+    }
+
 
     private void close(Connection connection, Statement statement, ResultSet resultSet) {
         try {

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>ebay-data-out-csv</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>update-app</artifactId>
+    <version>1.0</version>
     <build>
         <plugins>
             <plugin>
