@@ -73,8 +73,8 @@ public class ECommerceProductDetailDao {
         return minMax;
     }
 
-    public int findCountIsCrawlerStatusIsZero() {
-        String sql = "select count(1) as data_total from ecommerce_product_detail where crawler_status = 0";
+    public int findCountIsCrawlerByStatus(int status) {
+        String sql = "select count(1) as data_total from ecommerce_product_detail where crawler_status = " + status;
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
         log.info("sql: {}",sql);
         PreparedStatement preparedStatement = null;
