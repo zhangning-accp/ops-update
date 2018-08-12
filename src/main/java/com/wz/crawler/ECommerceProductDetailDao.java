@@ -25,6 +25,7 @@ public class ECommerceProductDetailDao {
         int min = sortIndexs[0];
         int max = sortIndexs[1];
         int loop = 1000000;
+        log.info("min:{},\t max{}",min,max);
         String sql = "update ecommerce_product_detail set crawler_task_id = null where sort_index >= ? and sort_index < ? and crawler_task_id is not null and crawler_status = 0";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
         PreparedStatement preparedStatement = null;
@@ -75,7 +76,7 @@ public class ECommerceProductDetailDao {
     public int findCountIsCrawlerStatusIsZero() {
         String sql = "select count(1) as data_total from ecommerce_product_detail where crawler_status = 0";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
-        log.info("connection is create... sql: {}",sql);
+        log.info("sql: {}",sql);
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -95,7 +96,7 @@ public class ECommerceProductDetailDao {
     public int findCountIsProductNameNotNull() {
         String sql = "select count(1) as data_total from ecommerce_product_detail where product_name is not null";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
-        log.info("connection is create... sql: {}",sql);
+        log.info("sql: {}",sql);
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -116,7 +117,7 @@ public class ECommerceProductDetailDao {
     public int deleteCrawlerMachine() {
         String sql = "delete from crawler_machine";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
-        log.info("connection is create... sql: {}",sql);
+        log.info("sql: {}",sql);
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -131,7 +132,7 @@ public class ECommerceProductDetailDao {
     public int deleteCrawlerTask() {
         String sql = "DELETE FROM crawler_task WHERE task_type = 3 ;";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
-        log.info("connection is create... sql: {}",sql);
+        log.info("sql: {}",sql);
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(sql);

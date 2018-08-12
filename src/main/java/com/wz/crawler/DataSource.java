@@ -22,6 +22,8 @@ public class DataSource {
      * 已经导出
      */
     private boolean export = false;
+
+    private boolean current = false;
     public String getFullDbName() {
         return id + "." + dbName;
     }

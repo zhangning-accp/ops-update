@@ -23,13 +23,10 @@ import org.dom4j.io.SAXReader;
  */
 @Slf4j
 public class MultiDataSource {
-    // key :
-    private Map<String, List<DataSource>> dataSources = new LinkedHashMap();
     // key: server_name.db_name.
-//    private Map<String,DruidDataSource> druidDataSourceMap = new HashMap();
+    private Map<String, List<DataSource>> dataSources = new LinkedHashMap();
     private Map<String,HikariDataSource> poolDataSourceMap = new HashMap();
     private static MultiDataSource instance = null;
-    //public static String dataSourceXML = ApplicationCache.DEFAULT_DATA_SOURCE_XML_FILE_PAH;
     private long oldLastModify = 0;
     private long newLastModify = 0;
 
@@ -102,6 +99,9 @@ public class MultiDataSource {
                     String isExport = dataSourceElement.attributeValue("isExport");
                     isExport = StringUtils.defaultString(isExport,"false");
                     isExport = StringUtils.trimToEmpty(isExport);
+                    String isCurrent = dataSourceElement.attributeValue("isCurrent");
+                    isCurrent = StringUtils.defaultString(isCurrent,"false");
+                    isCurrent = StringUtils.trimToEmpty(isCurrent);
 
                     if(StringUtils.isNotBlank(count)) {
                         try {
@@ -116,8 +116,10 @@ public class MultiDataSource {
                     dataSource.setDriverClass(driverClass);
                     dataSource.setDbName(dbName);
                     dataSource.setPassword(password);
-                    dataSource.setView(BooleanUtils.toBooleanObject(isView));
-                    dataSource.setExport(BooleanUtils.toBooleanObject(isExport));
+                    dataSource.setView(BooleanUtils.toBoolean(isView));
+                    dataSource.setExport(BooleanUtils.toBoolean(isExport));
+                    dataSource.setCurrent(BooleanUtils.toBoolean(isCurrent));
+
                     dataSourceList.add(dataSource);
                 }
                 dataSources.put(id, dataSourceList);

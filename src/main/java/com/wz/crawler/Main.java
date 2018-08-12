@@ -1,6 +1,7 @@
 package com.wz.crawler;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -8,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javafx.scene.chart.PieChart;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Main {
     private static int target = 1;
     private static MultiDataSource dataSource = MultiDataSource.getInstance();
@@ -41,8 +44,12 @@ public class Main {
             String key = iterator.next();
             List<DataSource> list = map.get(key);
             for (DataSource dataSource : list) {
-                if(dataSource.isView()) {
-                    message("{}: {}\t", false, target, dataSource.getFullDbName());
+                if(dataSource.isView() || dataSource.isCurrent()) {
+                    String fullDbName = dataSource.getFullDbName();
+                    if(dataSource.isCurrent()) {
+                        fullDbName += "(+)";
+                    }
+                    message("{}: {}\t", false, target, fullDbName);
                     fullNameMap.put(target, dataSource.getFullDbName());
                     target++;
                 }
@@ -50,12 +57,16 @@ public class Main {
             }
             message("", true);
         }
+        message("0: Test send email \t",true);
         message("----------------------------------------------------------------------------", true);
     }
 
-    private static int updateOrSelectMenu(Scanner scanner) {
+    private static int updateOrSelectMenu(Scanner scanner,String fullDbName) {
+        message("----------------------" + fullDbName +"------------------------------------------------------", true);
 
-        message("1. Count crawler status = 0 \t 2. Update task_id = null \t 3. delete machine \t 4. delete crawler task_typ = 3 \t 4. Exit", true);
+        message("1. Count crawler status = 0 \t 2. Update task_id = null \t 3. delete machine \t 4. delete crawler task_typ = 3 \t 5. Exit", true);
+        message("----------------------------------------------------------------------------", true);
+
         int selected = scanner.nextInt();
         return selected;
     }
@@ -67,13 +78,18 @@ public class Main {
         while (true) {
             mainMenu();
             int selected = scanner.nextInt();
+            if(selected == 0) {
+                log.info("Send email to 909604945@qq.com...");
+                EmailUtils.sendEmail("909604945@qq.com","测试","当前时间：" + new Date().toString());
+                continue;
+            }
             if (selected < 1 || selected > target) {
                 message("Unknown operation code, Please reselect........", true);
                 continue;
             } else {
                 String fullName = fullNameMap.get(selected);
                 dao = new ECommerceProductDetailDao(fullName);
-                int oper = updateOrSelectMenu(scanner);
+                int oper = updateOrSelectMenu(scanner,fullName);
                 if (oper == 2) {
                     message("Are you sure update database {}  ?,y/n:",
                             true, fullName);
