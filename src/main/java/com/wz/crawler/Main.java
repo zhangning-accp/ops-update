@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 import javafx.scene.chart.PieChart;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 @Slf4j
 public class Main {
@@ -64,7 +65,7 @@ public class Main {
     private static int updateOrSelectMenu(Scanner scanner,String fullDbName) {
         message("----------------------" + fullDbName +"------------------------------------------------------", true);
 
-        message("1. Count status = 0 \t 2. Count status = 1\t3. Update task_id \t 4. delete machine \t 5. delete crawler task \t 6. Exit", true);
+        message("1. Count status = 0  2. Count status = 1  3. Update task_id  4. delete machine  5. delete crawler task\n6. [5->4->3]  7. Exit", true);
         message("----------------------------------------------------------------------------", true);
 
         int selected = scanner.nextInt();
@@ -77,12 +78,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             mainMenu();
-            int selected = scanner.nextInt();
-//            if(selected == 0) {
-//                log.info("Send email to 909604945@qq.com...");
-//                EmailUtils.sendEmail("909604945@qq.com","测试","当前时间：" + new Date().toString());
-//                continue;
-//            }
+            String input = scanner.next();
+            while(StringUtils.isBlank(input)) {
+                input = scanner.next();
+            }
+            int selected = Integer.parseInt(input);
             if (selected < 1 || selected > target) {
                 message("Unknown operation code, Please reselect........", true);
                 continue;
@@ -114,7 +114,7 @@ public class Main {
                             break;
                     }
                 } else if (oper == 4) {
-                    message("Are you sure delete crawler machine ? database {},y/n:",
+                    message("Are you sure delete crawler machine ? in database {},y/n:",
                             true, fullName);
                     String yesOrNo = scanner.next();
                     switch (yesOrNo) {
@@ -126,7 +126,7 @@ public class Main {
                     }
                     continue;
                 }else if (oper == 5) {
-                    message("Are you sure delete crawler task type = 3 ? database {},y/n:",
+                    message("Are you sure delete crawler task type = 3 ? in database {},y/n:",
                             true, fullName);
                     String yesOrNo = scanner.next();
                     switch (yesOrNo) {
@@ -134,6 +134,23 @@ public class Main {
                             message("start delete crawler task ....", true);
                             int rows = dao.deleteCrawlerTask();
                             message("deleted  rows: {}", true, rows);
+                            break;
+                    }
+                } else if (oper == 6) {
+                    message("Are you sure  execute 5->4->3 ? in database {},y/n:",
+                            true, fullName);
+                    String yesOrNo = scanner.next();
+                    switch (yesOrNo) {
+                        case "y":
+                            message("start delete crawler task ....", true);
+                            int rows = dao.deleteCrawlerTask();
+                            message("deleted  rows: {}", true, rows);
+                            message("start delete crawler machine....", true);
+                            rows = dao.deleteCrawlerMachine();
+                            message("deleted  rows: {}", true, rows);
+                            message("start update....", true);
+                            dao.loopUpdateTaskIdIsNull();
+                            message("database {} updated ..", true, fullName);
                             break;
                     }
                 }

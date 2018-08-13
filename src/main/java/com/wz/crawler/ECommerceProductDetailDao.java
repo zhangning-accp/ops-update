@@ -25,7 +25,7 @@ public class ECommerceProductDetailDao {
         int min = sortIndexs[0];
         int max = sortIndexs[1];
         int loop = 1000000;
-        log.info("min:{},\t max{}",min,max);
+        log.info("min:{},\t max:{}",min,max);
         String sql = "update ecommerce_product_detail set crawler_task_id = null where sort_index >= ? and sort_index < ? and crawler_task_id is not null and crawler_status = 0";
         Connection connection = MultiDataSource.getInstance().getConnection(dbName);
         PreparedStatement preparedStatement = null;
@@ -122,6 +122,7 @@ public class ECommerceProductDetailDao {
         try {
             preparedStatement = connection.prepareStatement(sql);
             int rows= preparedStatement.executeUpdate();
+            return rows;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -137,6 +138,7 @@ public class ECommerceProductDetailDao {
         try {
             preparedStatement = connection.prepareStatement(sql);
             int rows= preparedStatement.executeUpdate();
+            return rows;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
